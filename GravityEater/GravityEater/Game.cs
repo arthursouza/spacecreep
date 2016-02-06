@@ -47,6 +47,7 @@ namespace GravityEater
         }
         public Map CurrentMap { get; set; }
         public Character Player { get; set; }
+        public TimeSpan TimePlayed { get; set; }
 
         private void SetResolution()
         {
@@ -124,8 +125,11 @@ namespace GravityEater
             var monsterTexture = Content.Load<Texture2D>("MonsterSprite2");
             GameGraphics.SpaceTextures = Content.Load<Texture2D>("SpaceTileset");
             GameGraphics.SpaceTextures2 = Content.Load<Texture2D>("SpaceTileset2");
-            GameGraphics.Ship1 = Content.Load<Texture2D>("Ship1");
+            GameGraphics.SpaceTextures3 = Content.Load<Texture2D>("SpaceTileset3");
+            GameGraphics.Ship1 = Content.Load<Texture2D>("Ships/Ship1");
+            GameGraphics.BigShip1 = Content.Load<Texture2D>("Ships/BigShip1Flat");
             GameGraphics.Explosion1 = Content.Load<Texture2D>("Explosion1");
+            GameGraphics.Star1 = Content.Load<Texture2D>("RandomStuff/Star1");
 
             Player = new Character(new SpriteAnimation(monsterTexture, 100, 4));
             
@@ -163,6 +167,8 @@ namespace GravityEater
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            TimePlayed = TimePlayed.Add(new TimeSpan(0, 0, 0, 0, (int)gameTime.ElapsedGameTime.TotalMilliseconds));
+
             UpdateMouse(gameTime);
             UpdateKeyboard();
 

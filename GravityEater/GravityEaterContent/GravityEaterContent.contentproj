@@ -149,7 +149,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ship1.png">
+    <Compile Include="Ships\Ship1.png">
       <Name>Ship1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -172,6 +172,27 @@
   <ItemGroup>
     <Compile Include="Circle 400px.png">
       <Name>Circle 400px</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ships\BigShip1Flat.png">
+      <Name>BigShip1Flat</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="RandomStuff\Star1.png">
+      <Name>Star1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SpaceTileset3.png">
+      <Name>SpaceTileset3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

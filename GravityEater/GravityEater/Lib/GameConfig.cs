@@ -12,6 +12,7 @@
         {
             ShowPlayerInfo = true;
             ShowHud = true;
+            DebugMode = false;
             OnlyDrawVisibleMap = true;
         }
 

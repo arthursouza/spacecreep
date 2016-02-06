@@ -7,7 +7,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Monster.xnb</Output>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Monster.xnb</Output>
       <Time>2016-02-05T18:35:43.3325116-02:00</Time>
     </Item>
     <Item>
@@ -16,7 +16,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\MonsterSprite.xnb</Output>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\MonsterSprite.xnb</Output>
       <Time>2016-02-05T18:41:13.8594167-02:00</Time>
     </Item>
     <Item>
@@ -25,7 +25,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\MonsterSprite2.xnb</Output>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\MonsterSprite2.xnb</Output>
       <Time>2016-02-06T01:36:01.1439808-02:00</Time>
     </Item>
     <Item>
@@ -34,7 +34,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\map sample.xnb</Output>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\map sample.xnb</Output>
       <Time>2016-02-06T03:24:11.030181-02:00</Time>
     </Item>
     <Item>
@@ -43,7 +43,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\SpaceTileset.xnb</Output>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\SpaceTileset.xnb</Output>
       <Time>2016-02-06T15:25:34.9240382-02:00</Time>
     </Item>
     <Item>
@@ -52,134 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\BlackChancery36.xnb</Output>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\BlackChancery36.xnb</Output>
       <Time>2016-02-06T15:20:30.4986239-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\Arial12.spritefont</Source>
-      <Name>Fonts\Arial12</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\Arial12.xnb</Output>
-      <Time>2016-02-06T15:20:30.4946237-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\ArialBlack12.spritefont</Source>
-      <Name>Fonts\ArialBlack12</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\ArialBlack12.xnb</Output>
-      <Time>2016-02-06T15:20:30.4956237-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\ArialBlack14.spritefont</Source>
-      <Name>Fonts\ArialBlack14</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\ArialBlack14.xnb</Output>
-      <Time>2016-02-06T15:20:30.4956237-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\ArialBlack14Italic.spritefont</Source>
-      <Name>Fonts\ArialBlack14Italic</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\ArialBlack14Italic.xnb</Output>
-      <Time>2016-02-06T15:20:30.4956237-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\ArialBlack16.spritefont</Source>
-      <Name>Fonts\ArialBlack16</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\ArialBlack16.xnb</Output>
-      <Time>2016-02-06T15:20:30.4966238-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\ArialBlack20.spritefont</Source>
-      <Name>Fonts\ArialBlack20</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\ArialBlack20.xnb</Output>
-      <Time>2016-02-06T15:20:30.4966238-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\CourierNew12.spritefont</Source>
-      <Name>Fonts\CourierNew12</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\CourierNew12.xnb</Output>
-      <Time>2016-02-06T15:20:30.499624-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\TrebuchetMS 12.spritefont</Source>
-      <Name>Fonts\TrebuchetMS 12</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\TrebuchetMS 12.xnb</Output>
-      <Time>2016-02-06T15:20:30.5296257-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\TrebuchetMS 14.spritefont</Source>
-      <Name>Fonts\TrebuchetMS 14</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\TrebuchetMS 14.xnb</Output>
-      <Time>2016-02-06T15:20:30.5306257-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\Verdana16.spritefont</Source>
-      <Name>Fonts\Verdana16</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\Verdana16.xnb</Output>
-      <Time>2016-02-06T15:20:30.5316258-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\Verdana18.spritefont</Source>
-      <Name>Fonts\Verdana18</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\Verdana18.xnb</Output>
-      <Time>2016-02-06T15:20:30.5316258-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\Verdana25.spritefont</Source>
-      <Name>Fonts\Verdana25</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\Verdana25.xnb</Output>
-      <Time>2016-02-06T15:20:30.5336259-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\Verdana30.spritefont</Source>
-      <Name>Fonts\Verdana30</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\Verdana30.xnb</Output>
-      <Time>2016-02-06T15:20:30.534626-02:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\Verdana8.spritefont</Source>
-      <Name>Fonts\Verdana8</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\Verdana8.xnb</Output>
-      <Time>2016-02-06T15:20:30.534626-02:00</Time>
     </Item>
     <Item>
       <Source>SpaceTileset2.png</Source>
@@ -187,16 +61,16 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\SpaceTileset2.xnb</Output>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\SpaceTileset2.xnb</Output>
       <Time>2016-02-06T17:08:41.2548761-02:00</Time>
     </Item>
     <Item>
-      <Source>Ship1.png</Source>
-      <Name>Ship1</Name>
+      <Source>Ships\Ship1.png</Source>
+      <Name>Ships\Ship1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Ship1.xnb</Output>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Ships\Ship1.xnb</Output>
       <Time>2016-02-06T17:53:08.6454421-02:00</Time>
     </Item>
     <Item>
@@ -205,7 +79,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\BigShip1.xnb</Output>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\BigShip1.xnb</Output>
       <Time>2016-02-06T18:09:44.5004658-02:00</Time>
     </Item>
     <Item>
@@ -214,7 +88,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Explosion1.xnb</Output>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Explosion1.xnb</Output>
       <Time>2016-02-06T18:34:30.5544613-02:00</Time>
     </Item>
     <Item>
@@ -223,8 +97,161 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\Circle 400px.xnb</Output>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Circle 400px.xnb</Output>
       <Time>2016-02-06T18:49:27.7167775-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Ships\BigShip1Flat.png</Source>
+      <Name>Ships\BigShip1Flat</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Ships\BigShip1Flat.xnb</Output>
+      <Time>2016-02-06T20:16:32.1016164-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Arial12.spritefont</Source>
+      <Name>Fonts\Arial12</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\Arial12.xnb</Output>
+      <Time>2016-02-06T15:20:30.4946237-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\ArialBlack12.spritefont</Source>
+      <Name>Fonts\ArialBlack12</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\ArialBlack12.xnb</Output>
+      <Time>2016-02-06T15:20:30.4956237-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\ArialBlack14.spritefont</Source>
+      <Name>Fonts\ArialBlack14</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\ArialBlack14.xnb</Output>
+      <Time>2016-02-06T15:20:30.4956237-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\ArialBlack14Italic.spritefont</Source>
+      <Name>Fonts\ArialBlack14Italic</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\ArialBlack14Italic.xnb</Output>
+      <Time>2016-02-06T15:20:30.4956237-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\ArialBlack16.spritefont</Source>
+      <Name>Fonts\ArialBlack16</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\ArialBlack16.xnb</Output>
+      <Time>2016-02-06T15:20:30.4966238-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\ArialBlack20.spritefont</Source>
+      <Name>Fonts\ArialBlack20</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\ArialBlack20.xnb</Output>
+      <Time>2016-02-06T15:20:30.4966238-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\CourierNew12.spritefont</Source>
+      <Name>Fonts\CourierNew12</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\CourierNew12.xnb</Output>
+      <Time>2016-02-06T15:20:30.499624-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\TrebuchetMS 12.spritefont</Source>
+      <Name>Fonts\TrebuchetMS 12</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\TrebuchetMS 12.xnb</Output>
+      <Time>2016-02-06T15:20:30.5296257-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\TrebuchetMS 14.spritefont</Source>
+      <Name>Fonts\TrebuchetMS 14</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\TrebuchetMS 14.xnb</Output>
+      <Time>2016-02-06T15:20:30.5306257-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Verdana16.spritefont</Source>
+      <Name>Fonts\Verdana16</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\Verdana16.xnb</Output>
+      <Time>2016-02-06T15:20:30.5316258-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Verdana18.spritefont</Source>
+      <Name>Fonts\Verdana18</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\Verdana18.xnb</Output>
+      <Time>2016-02-06T15:20:30.5316258-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Verdana25.spritefont</Source>
+      <Name>Fonts\Verdana25</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\Verdana25.xnb</Output>
+      <Time>2016-02-06T15:20:30.5336259-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Verdana30.spritefont</Source>
+      <Name>Fonts\Verdana30</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\Verdana30.xnb</Output>
+      <Time>2016-02-06T15:20:30.534626-02:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Verdana8.spritefont</Source>
+      <Name>Fonts\Verdana8</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\Fonts\Verdana8.xnb</Output>
+      <Time>2016-02-06T15:20:30.534626-02:00</Time>
+    </Item>
+    <Item>
+      <Source>RandomStuff\Star1.png</Source>
+      <Name>RandomStuff\Star1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\RandomStuff\Star1.xnb</Output>
+      <Time>2016-02-06T20:27:39.7698197-02:00</Time>
+    </Item>
+    <Item>
+      <Source>SpaceTileset3.png</Source>
+      <Name>SpaceTileset3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\SpaceTileset3.xnb</Output>
+      <Time>2016-02-06T20:39:41.5511033-02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -233,10 +260,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEaterContent\</RootDirectory>
-      <LoggerRootDirectory>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\</LoggerRootDirectory>
-      <IntermediateDirectory>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEater\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>D:\Meus Projetos\spacecreep\GravityEater\GravityEaterContent\</RootDirectory>
+      <LoggerRootDirectory>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\</LoggerRootDirectory>
+      <IntermediateDirectory>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>D:\Meus Projetos\spacecreep\GravityEater\GravityEater\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

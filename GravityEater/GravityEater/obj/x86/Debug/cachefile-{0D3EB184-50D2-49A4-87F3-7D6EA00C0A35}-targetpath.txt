@@ -4,6 +4,12 @@ Content\MonsterSprite2.xnb
 Content\map sample.xnb
 Content\SpaceTileset.xnb
 Content\Fonts\BlackChancery36.xnb
+Content\SpaceTileset2.xnb
+Content\Ships\Ship1.xnb
+Content\BigShip1.xnb
+Content\Explosion1.xnb
+Content\Circle 400px.xnb
+Content\Ships\BigShip1Flat.xnb
 Content\Fonts\Arial12.xnb
 Content\Fonts\ArialBlack12.xnb
 Content\Fonts\ArialBlack14.xnb
@@ -18,8 +24,5 @@ Content\Fonts\Verdana18.xnb
 Content\Fonts\Verdana25.xnb
 Content\Fonts\Verdana30.xnb
 Content\Fonts\Verdana8.xnb
-Content\SpaceTileset2.xnb
-Content\Ship1.xnb
-Content\BigShip1.xnb
-Content\Explosion1.xnb
-Content\Circle 400px.xnb
+Content\RandomStuff\Star1.xnb
+Content\SpaceTileset3.xnb

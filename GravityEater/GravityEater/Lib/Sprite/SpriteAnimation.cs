@@ -21,15 +21,49 @@ namespace GravityEater.Lib.Sprite
         private readonly Texture2D sprite;
         private readonly int spriteHeight;
         private readonly int spriteWidth;
+
         private bool animating;
         private int currentFrame;
-
         private AnimationDirection direcaoDaAnimacao;
         private GameTime gameTime;
-        public bool isToggle;
         private Rectangle sourceRect;
         private Vector2 spriteFormat;
         private float timer;
+        
+        public AnimationPosition AnimationPosition { get; set; }
+        public bool On { get; set; }
+        public Vector2 Position { get; set; }
+        public bool IsToggle { get; set; }
+        public Vector2 Origin { get; set; }
+        public bool IsAnimating
+        {
+            get { return animating; }
+        }
+
+        public int Width
+        {
+            get { return spriteWidth; }
+        }
+        public int Height
+        {
+            get { return spriteHeight; }
+        }
+
+        public Texture2D Texture
+        {
+            get { return sprite; }
+        }
+        public Vector2 SpriteFormat
+        {
+            get { return spriteFormat; }
+        }
+        public Color Color { get; set; }
+        public Character Target { get; set; }
+        public float Interval
+        {
+            get { return interval; }
+        }
+
 
         public SpriteAnimation(Texture2D sprite, float interval, int frames)
         {
@@ -38,10 +72,10 @@ namespace GravityEater.Lib.Sprite
             currentFrame = 0;
             this.interval = interval;
             spriteHeight = sprite.Height;
-            spriteWidth = sprite.Width/frames;
-            sourceRect = new Rectangle(currentFrame*spriteWidth, 0, spriteWidth, spriteHeight);
-            Origin = new Vector2(spriteWidth/2, spriteHeight/2);
-            
+            spriteWidth = sprite.Width / frames;
+            sourceRect = new Rectangle(currentFrame * spriteWidth, 0, spriteWidth, spriteHeight);
+            Origin = new Vector2(spriteWidth / 2, spriteHeight / 2);
+
             animating = false;
             frameCount = frames;
             spriteFormat = new Vector2(frames, 1);
@@ -55,8 +89,8 @@ namespace GravityEater.Lib.Sprite
             currentFrame = 0;
             this.interval = interval;
             spriteHeight = sprite.Height;
-            spriteWidth = sprite.Width/frames;
-            sourceRect = new Rectangle(currentFrame*spriteWidth, 0, spriteWidth, spriteHeight);
+            spriteWidth = sprite.Width / frames;
+            sourceRect = new Rectangle(currentFrame * spriteWidth, 0, spriteWidth, spriteHeight);
             Origin = origin;
             animating = false;
             frameCount = frames;
@@ -68,60 +102,13 @@ namespace GravityEater.Lib.Sprite
         {
             this.sprite = sprite;
             this.spriteFormat = spriteFormat;
-            spriteHeight = (int) (sprite.Height/spriteFormat.Y);
-            spriteWidth = (int) (sprite.Width/spriteFormat.X);
-            frameCount = (int) (spriteFormat.X*spriteFormat.Y);
+            spriteHeight = (int)(sprite.Height / spriteFormat.Y);
+            spriteWidth = (int)(sprite.Width / spriteFormat.X);
+            frameCount = (int)(spriteFormat.X * spriteFormat.Y);
             animating = false;
-            Origin = new Vector2(spriteWidth/2, spriteHeight/2);
+            Origin = new Vector2(spriteWidth / 2, spriteHeight / 2);
             interval = animationInterval;
             Color = Color.White;
-        }
-
-        public AnimationPosition AnimationPosition { get; set; }
-
-        public bool On { get; set; }
-        public Vector2 Position { get; set; }
-
-        public bool IsToggle
-        {
-            get { return isToggle; }
-            set { isToggle = value; }
-        }
-
-        public Vector2 Origin { get; set; }
-
-        public bool IsAnimating
-        {
-            get { return animating; }
-        }
-
-        public int Width
-        {
-            get { return spriteWidth; }
-        }
-
-        public int Height
-        {
-            get { return spriteHeight; }
-        }
-
-        public Texture2D Texture
-        {
-            get { return sprite; }
-        }
-
-        public Vector2 SpriteFormat
-        {
-            get { return spriteFormat; }
-        }
-
-        public Color Color { get; set; }
-
-        public Character Target { get; set; }
-
-        public float Interval
-        {
-            get { return interval; }
         }
 
         public void Update(GameTime gameTime)
@@ -161,7 +148,7 @@ namespace GravityEater.Lib.Sprite
 
             if (timer > interval)
             {
-                if (!isToggle)
+                if (!IsToggle)
                 {
                     if (currentFrame == frameCount - 1)
                     {
@@ -199,7 +186,7 @@ namespace GravityEater.Lib.Sprite
         public void Start()
         {
             animating = true;
-            if (isToggle)
+            if (IsToggle)
             {
                 if (currentFrame == 0)
                 {

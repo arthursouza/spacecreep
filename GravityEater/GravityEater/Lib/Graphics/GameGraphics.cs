@@ -41,8 +41,11 @@ namespace GravityEater.Lib.Graphics
         public static Texture2D CollisionRadius { get; set; }
         public static Texture2D SpaceTextures { get; set; }
         public static Texture2D SpaceTextures2 { get; set; }
+        public static Texture2D SpaceTextures3 { get; set; }
         public static Texture2D Ship1 { get; set; }
         public static Texture2D Explosion1 { get; set; }
+        public static Texture2D BigShip1 { get; set; }
+        public static Texture2D Star1 { get; internal set; }
 
         public static void Load(ContentManager content)
         {

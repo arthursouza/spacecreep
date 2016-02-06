@@ -55,7 +55,7 @@ namespace GravityEater.Lib.Scene
                 Tileset = new Tileset()
                 {
                     Columns = 4,
-                    TextureMap = Graphics.GameGraphics.SpaceTextures2,
+                    TextureMap = Graphics.GameGraphics.SpaceTextures3,
                     TileSize = 64
                 },
                 Layers = new List<MapLayer>()
@@ -484,11 +484,11 @@ namespace GravityEater.Lib.Scene
                 0, 1);
             Game.BasicEffect.CurrentTechnique.Passes[0].Apply();
 
-            //if (GameConfig.Config.ShowPathFinding)
-            //{
+            if (GameConfig.Config.DebugMode)
+            {
             //    Game.CurrentMap.CollisionLayer.Draw(spriteBatch);
                     renderList.ForEach(x => x.DrawCollisionBounds(spriteBatch));
-            //}
+            }
 
             renderList.ForEach(x => x.Draw(spriteBatch));
             //animations.ForEach(x => x.Draw(spriteBatch));
@@ -498,7 +498,7 @@ namespace GravityEater.Lib.Scene
             //DrawFloatingText();
             //DrawDialogs();
 
-            //if (GameConfig.Config.DebugMode)
+            if (GameConfig.Config.DebugMode)
                 DrawDebugInfo();
 
             spriteBatch.End();
@@ -1052,6 +1052,11 @@ namespace GravityEater.Lib.Scene
                             movement = fleeMovement;
                         }
                         break;
+                    case Enemy.BehaviorType.Wandering:
+                        var softFlee = Steering.Flee(enemy, Player, 150f);
+                        if (softFlee != Vector2.Zero)
+                            movement = softFlee;
+                        break;
                 }
 
                if (movement != Vector2.Zero)
@@ -1312,11 +1317,91 @@ namespace GravityEater.Lib.Scene
         {
             SpawnCreepShips();
             SpawnBigShips();
+            SpawnRandomStars();
+        }
+
+        private void SpawnRandomStars()
+        {
+            var stars = new List<Animation>();
+
+            var starColors = new List<Color>
+            {
+                Color.CornflowerBlue,
+                Color.LightCyan,
+                Color.LightYellow,
+                Color.LightGoldenrodYellow,
+            };
+
+            Random r = new Random((int)(DateTime.Now.Millisecond + Game.TimePlayed.TotalMilliseconds));
+
+            var tileList = new List<Vector2>();
+
+            for (int i = 0; i < 200; i++)
+            {
+                var position = new Vector2(r.Next(0, Game.CurrentMap.Width + 1), r.Next(0, Game.CurrentMap.Height + 1));
+
+                while (tileList.Contains(position))
+                {
+                    position = new Vector2(r.Next(0, Game.CurrentMap.Width + 1), r.Next(0, Game.CurrentMap.Height + 1));
+                }
+
+                tileList.Add(position);
+
+                var a = new Animation()
+                {
+                    Position = MapHelper.GetPixelsFromTileCenter(position),
+                    Sprite = new SpriteAnimation(GameGraphics.Star1, 200, 4)
+                    {
+                        Color = starColors[r.Next(0, starColors.Count)],
+                        IsToggle = false
+                    }
+                
+                };
+
+                stars.Add(a);
+            }
+
+            Game.CurrentMap.Animations.AddRange(stars);
         }
 
         private void SpawnBigShips()
         {
-            
+            var ships = new List<Enemy>();
+
+            Random r = new Random(DateTime.Now.Millisecond);
+
+            var tileList = new List<Vector2>();
+
+            for (int i = 0; i < 100; i++)
+            {
+                var position = new Vector2(r.Next(0, Game.CurrentMap.Width + 1), r.Next(0, Game.CurrentMap.Height + 1));
+
+                while (tileList.Contains(position))
+                {
+                    position = new Vector2(r.Next(0, Game.CurrentMap.Width + 1), r.Next(0, Game.CurrentMap.Height + 1));
+                }
+
+                tileList.Add(position);
+
+                var bigShip = new Enemy()
+                {
+                    CharSprite = new SpriteAnimation(GameGraphics.BigShip1, 300, 4),
+                    Position = MapHelper.GetPixelsFromTileCenter(position),
+                    Behavior = Enemy.BehaviorType.Wandering,
+                    StepSize = 4,
+                    PlayerKillable = false,
+                    CollisionRadius = 40
+                };
+
+                bigShip.NewTargetPosition(Game.CurrentMap);
+
+                ships.Add(bigShip);
+            }
+
+            if (Game.CurrentMap != null)
+            {
+                Game.CurrentMap.MapEnemies.AddRange(ships);
+            }
         }
 
         private void SpawnCreepShips()
