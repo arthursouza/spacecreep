@@ -19,6 +19,20 @@ namespace GravityEater.Lib.Scene
         //private List<FloatingText> floatingText;
         //private List<LootScreenLog> lootLog;
 
+        public List<dynamic> EnemyTypes = new List<dynamic>()
+        {
+            new
+            {
+                Id = 1,
+                Name = "CreepShip"
+            },
+            new
+            {
+                Id = 2,
+                Name = "BigShip"
+            }
+        };
+
         private int elapsedTime;
         private int framesPerSecond;
         private List<GameObject> gameObjects;
@@ -815,9 +829,21 @@ namespace GravityEater.Lib.Scene
 
             var nearbyEnemies = AliveEnemies.Where(e => Player.IsInRange(e.Position, 500));
 
-            if (nearbyEnemies.Any())
+            if (Player.Target == null)
             {
-                Player.Move(Steering.Seek(Player, nearbyEnemies.FirstOrDefault().Position));
+                if (nearbyEnemies.Any())
+                {
+                    Player.Target = nearbyEnemies.FirstOrDefault();
+                }
+                else
+                {
+                    Player.Target = null;
+                }
+            }
+
+            if (Player.Target != null)
+            {
+                Player.Move(Steering.Seek(Player, Player.Target.Position));
             }
 
             if (InputManager.MovementInput != Vector2.Zero)
@@ -831,9 +857,9 @@ namespace GravityEater.Lib.Scene
 
         private void UpdateEnemies(GameTime gameTime)
         {
-            for (int i = 0; i < Game.CurrentMap.MapEnemies.Count; i++)
+            for (int i = 0; i < AliveEnemies.Count; i++)
             {
-                Enemy enemy = Game.CurrentMap.MapEnemies[i];
+                var enemy = Game.CurrentMap.MapEnemies[i];
                 enemy.Update(gameTime);
 
                 if (enemy.IsAlive)
@@ -843,20 +869,36 @@ namespace GravityEater.Lib.Scene
 
                     if (Player.IsInRange(enemy.Position, enemy.CollisionRadius + Player.CollisionRadius + 10) && enemy.PlayerKillable)
                     {
-                        enemy.IsAlive = false;
-                        Game.CurrentMap.Animations.Add(new Animation()
-                        {
-                            Position = enemy.Position,
-                            Collision = false,
-                            Sprite = new SpriteAnimation(GameGraphics.Explosion1, 200, 4)
-                            {
-                                IsToggle = true
-                            }
-                        });
+                        KillEnemy(enemy, true);
                     }
 
-                    Steering.EnforcePenetrationConstraint(enemy, gameObjects);
-                    enemy.ClampToArea(Game.CurrentMap.WidthInPixels, Game.CurrentMap.HeightInPixels);
+                    if (enemy.IsAlive)
+                    {
+                        var collidedEnemies =
+                            AliveEnemies.Where(
+                                e =>
+                                    e.IsInRange(enemy.Position, enemy.CollisionRadius + e.CollisionRadius + 10) &&
+                                    e.Priority != enemy.Priority).ToList();
+
+                        foreach (var e in collidedEnemies)
+                        {
+                            if (e.Priority > enemy.Priority)
+                            {
+                                KillEnemy(enemy, false);
+                            }
+                            else
+                            {
+                                KillEnemy(e, false);
+                            }
+                        }
+
+
+                        if (enemy.IsAlive)
+                        {
+                            Steering.EnforcePenetrationConstraint(enemy, gameObjects);
+                            enemy.ClampToArea(Game.CurrentMap.WidthInPixels, Game.CurrentMap.HeightInPixels);
+                        }
+                    }
                 }
                 else
                 {
@@ -1046,7 +1088,7 @@ namespace GravityEater.Lib.Scene
                 switch (enemy.Behavior)
                 {
                     case Enemy.BehaviorType.Fleeing:
-                        var fleeMovement = Steering.Flee(enemy, Player);
+                        var fleeMovement = Steering.Flee(enemy, Player, 200);
                         if (fleeMovement != Vector2.Zero)
                         {
                             movement = fleeMovement;
@@ -1195,14 +1237,31 @@ namespace GravityEater.Lib.Scene
         private void KillEnemy(Character enemy, bool byPlayer)
         {
             //var xpFont = Fonts.ArialBlack12;
+            if (Player.Target == enemy)
+            {
+                Player.Target = null;
+            }
+
+            enemy.IsAlive = false;
+
+            Game.CurrentMap.Animations.Add(new Animation()
+            {
+                Position = enemy.Position,
+                Collision = false,
+                Sprite = new SpriteAnimation(GameGraphics.Explosion1, 200, 4)
+                {
+                    IsToggle = true
+                }
+            });
 
             if (byPlayer)
             {
             //    #region user stats
 
-            //    if (!Game.GameStats.EnemiesKilled.ContainsKey(enemy.Id))
-            //        Game.GameStats.EnemiesKilled.Add(enemy.Id, 0);
-            //    Game.GameStats.EnemiesKilled[enemy.Id]++;
+                //if (!Game.GameStats.EnemiesKilled.ContainsKey(enemy.Id))
+                //    Game.GameStats.EnemiesKilled.Add(enemy.Id, 0);
+
+                //Game.GameStats.EnemiesKilled[enemy.Id]++;
 
             //    #endregion
 
@@ -1390,7 +1449,8 @@ namespace GravityEater.Lib.Scene
                     Behavior = Enemy.BehaviorType.Wandering,
                     StepSize = 4,
                     PlayerKillable = false,
-                    CollisionRadius = 40
+                    CollisionRadius = 40,
+                    Priority = 3
                 };
 
                 bigShip.NewTargetPosition(Game.CurrentMap);

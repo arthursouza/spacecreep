@@ -30,9 +30,6 @@ namespace GravityEater
 
         public BasicEffect BasicEffect;
         public BlendState BlendState;
-
-        //public GameManager GameManager;
-
         public int UniqueObjectId = 0;
         public Transition CurrentTransition { get; set; }
         public bool Paused
@@ -123,6 +120,7 @@ namespace GravityEater
         protected override void LoadContent()
         {
             var monsterTexture = Content.Load<Texture2D>("MonsterSprite2");
+            GameGraphics.MonsterSpriteIdle = Content.Load<Texture2D>("MonsterSpriteIdle");
             GameGraphics.SpaceTextures = Content.Load<Texture2D>("SpaceTileset");
             GameGraphics.SpaceTextures2 = Content.Load<Texture2D>("SpaceTileset2");
             GameGraphics.SpaceTextures3 = Content.Load<Texture2D>("SpaceTileset3");
@@ -131,8 +129,7 @@ namespace GravityEater
             GameGraphics.Explosion1 = Content.Load<Texture2D>("Explosion1");
             GameGraphics.Star1 = Content.Load<Texture2D>("RandomStuff/Star1");
 
-            Player = new Character(new SpriteAnimation(monsterTexture, 100, 4));
-            
+            Player = new Character(new SpriteAnimation(GameGraphics.MonsterSpriteIdle, 200, 11));
             Player.Position = MapHelper.GetPixelsFromTileCenter(new Vector2(3, 3));
 
             // Create a new SpriteBatch, which can be used to draw textures.

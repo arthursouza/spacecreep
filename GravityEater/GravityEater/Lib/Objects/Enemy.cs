@@ -24,15 +24,17 @@ namespace GravityEater.Lib.Objects
         {
             var r = new Random(DateTime.Now.Millisecond);
             RespawnTime = r.Next(45000, 60001);
+            Priority = 1;
         }
 
         public int MaxTargetDistance { get; set; }
         public int FollowRange { get; set; }
         public int DeathTimer { get; set; }
         public int RespawnTime { get; set; }
-
-        public Vector2 CurrentTargetPosition { get; set; }
         public bool PlayerKillable { get; set; }
+        public Vector2 CurrentTargetPosition { get; set; }
+
+        public int Priority { get; set; }
 
         public void NewTargetPosition(Map.Map currentMap)
         {

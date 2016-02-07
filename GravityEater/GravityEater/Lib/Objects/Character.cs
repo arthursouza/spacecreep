@@ -36,18 +36,10 @@ namespace GravityEater.Lib.Objects
 
         #endregion
         
-        public Character(SpriteAnimation spriteAnimation)
-        {
-            CharSprite = spriteAnimation;
-            StartupVariables();
-        }
-
-        public Character()
-        {
-            StartupVariables();
-        }
-
         public bool IsPlayer
+        { get; set; }
+
+        public bool IsAlive
         { get; set; }
 
         public Vector2 Origin
@@ -55,9 +47,6 @@ namespace GravityEater.Lib.Objects
             get;
             set;
         }
-        
-        public bool IsAlive
-        { get; set; }
 
         public string Name
         { get; set; }
@@ -69,11 +58,27 @@ namespace GravityEater.Lib.Objects
         
         public SpriteAnimation CharSprite
         { get; set; }
+
+        public SpriteAnimation AttackSprite
+        { get; set; }
+
         public Direction Facing
         { get; set; }
+
         public Character Target
         { get; set; }
         
+        public Character(SpriteAnimation spriteAnimation)
+        {
+            CharSprite = spriteAnimation;
+            StartupVariables();
+        }
+
+        public Character()
+        {
+            StartupVariables();
+        }
+
         private void StartupVariables()
         {
             CollisionRadius = 25f;
@@ -111,7 +116,6 @@ namespace GravityEater.Lib.Objects
         /// <param name="gameObject"></param>
         /// <returns></returns>
         
-
         //public void StartAttack()
         //{
         //    StopMovement();
