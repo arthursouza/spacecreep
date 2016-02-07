@@ -1,2 +1,0 @@
-D:\Meus Projetos\GravityEater\GravityEater\GravityEater\GravityEaterContent\obj\x86\Debug\GravityEaterContent.contentprojResolveAssemblyReference.cache
-D:\Meus Projetos\spacecreep\GravityEater\GravityEaterContent\obj\x86\Debug\GravityEaterContent.contentprojResolveAssemblyReference.cache
