@@ -16,6 +16,10 @@ namespace GravityEater.Lib.Objects
             Idle
         }
 
+        public int Damage { get; set; }
+        public int Heal { get; set; }
+        public int Points { get; set; }
+
         public static float DeathTimerLimit = 15000;
 
         public BehaviorType Behavior { get; set; }

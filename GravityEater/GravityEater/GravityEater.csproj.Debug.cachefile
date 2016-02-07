@@ -27,3 +27,14 @@ Content\Fonts\Verdana8.xnb
 Content\RandomStuff\Star1.xnb
 Content\SpaceTileset3.xnb
 Content\MonsterSpriteIdle.xnb
+Content\Interface\HpBar.xnb
+Content\Interface\HpBarBack.xnb
+Content\HealthKit1.xnb
+Content\MonsterTrack.xnb
+Content\Planet1.xnb
+Content\Menu2.xnb
+Content\Menu1.xnb
+Content\Sounds\Explosion.xnb
+Content\Sounds\BigExplosion.xnb
+Content\Sounds\Heal.xnb
+Content\selectedItemTexture.xnb

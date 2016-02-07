@@ -10,6 +10,8 @@ namespace GravityEater.Lib
 {
     public class Animation : GameObject
     {
+        public string Name { get; set; }
+
         public SpriteAnimation Sprite { get; set; }
 
         public void Update(GameTime gameTime)

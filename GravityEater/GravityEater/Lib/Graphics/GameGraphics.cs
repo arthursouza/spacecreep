@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -47,6 +48,15 @@ namespace GravityEater.Lib.Graphics
         public static Texture2D BigShip1 { get; set; }
         public static Texture2D Star1 { get; internal set; }
         public static Texture2D MonsterSpriteIdle { get; set; }
+        public static Texture2D HealthKit { get; set; }
+        public static Texture2D MonsterTrack { get; set; }
+        public static Texture2D Planet1 { get; set; }
+
+        public static Texture2D Menu1 { get; set; }
+        public static Texture2D Menu2 { get; set; }
+        public static SoundEffect SoundExplosion { get; internal set; }
+        public static SoundEffect SoundExplosionBig { get; set; }
+        public static SoundEffect SoundHeal { get; set; }
 
         public static void Load(ContentManager content)
         {

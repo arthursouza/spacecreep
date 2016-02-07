@@ -67,7 +67,7 @@ namespace GravityEater
             Content.RootDirectory = "Content";
 
             Exiting += Game_Exiting;
-            Window.Title = "Graviteat";
+            Window.Title = "The World Eater";
             IsMouseVisible = true;
 
             GameConfig.Load();
@@ -128,9 +128,27 @@ namespace GravityEater
             GameGraphics.BigShip1 = Content.Load<Texture2D>("Ships/BigShip1Flat");
             GameGraphics.Explosion1 = Content.Load<Texture2D>("Explosion1");
             GameGraphics.Star1 = Content.Load<Texture2D>("RandomStuff/Star1");
+            GameGraphics.Planet1 = Content.Load<Texture2D>("Planet1");
+            GameGraphics.CharacterHpBar = Content.Load<Texture2D>("Interface/HpBar");
+            GameGraphics.CharacterHpBarBg = Content.Load<Texture2D>("Interface/HpBarBack");
+            GameGraphics.HealthKit = Content.Load<Texture2D>("HealthKit1");
+            GameGraphics.MonsterTrack = Content.Load<Texture2D>("MonsterTrack");
+            GameGraphics.SelectedItemTexture = Content.Load<Texture2D>("selectedItemTexture");
 
-            Player = new Character(new SpriteAnimation(GameGraphics.MonsterSpriteIdle, 200, 11));
-            Player.Position = MapHelper.GetPixelsFromTileCenter(new Vector2(3, 3));
+            GameGraphics.Menu1 = Content.Load<Texture2D>("Menu1");
+            GameGraphics.Menu2 = Content.Load<Texture2D>("Menu2");
+
+            GameGraphics.SoundExplosion = Content.Load<SoundEffect>("Sounds/Explosion");
+            GameGraphics.SoundExplosionBig = Content.Load<SoundEffect>("Sounds/BigExplosion");
+            GameGraphics.SoundHeal = Content.Load<SoundEffect>("Sounds/Heal");
+
+            Player = new Character(new SpriteAnimation(GameGraphics.MonsterSpriteIdle, 200, 11))
+            {
+                Position = MapHelper.GetPixelsFromTileCenter(new Vector2(3, 3)),
+                MaxHp = 100,
+                Hp = 100
+            };
+            
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -138,13 +156,13 @@ namespace GravityEater
             Fonts.Load(Content);
             GameGraphics.Load(Content);
 
-            //Scenes[GameState.MainMenu] = new MainMenuScene(this);
+            Scenes[GameState.MainMenu] = new MainMenuScene(this);
             //Scenes[GameState.LoadGame] = new LoadGameScene(this);
             //Scenes[GameState.Help] = new HelpScene(this);
             //Scenes[GameState.GameStatsHelp] = new GameStatsHelpScene(this);
             Scenes[GameState.GameStarted] = new GameStartedScene(this);
             //Scenes[GameState.NewGame] = new NewGameScene(this);
-            State = GameState.GameStarted;
+            State = GameState.MainMenu;
             // TODO: use this.Content to load your game content here
         }
 
@@ -219,32 +237,32 @@ namespace GravityEater
 
             //#endregion
 
-            //#region Mouse Left Button
+            #region Mouse Left Button
 
-            //if (InputManager.MouseState.LeftButton == ButtonState.Pressed &&
-            //    InputManager.LastMouseState.LeftButton == ButtonState.Released)
-            //{
-            //    if ((gameTime.TotalGameTime - InputManager.LastMouseLeftClick).TotalMilliseconds <=
-            //        InputConfiguration.Config.DoubleClickDelay)
-            //        MouseDoubleClickLeft();
-            //    else
-            //        MouseLeftClick();
+            if (InputManager.MouseState.LeftButton == ButtonState.Pressed && InputManager.LastMouseState.LeftButton == ButtonState.Released)
+            {
+                //if ((gameTime.TotalGameTime - InputManager.LastMouseLeftClick).TotalMilliseconds <= InputConfiguration.Config.DoubleClickDelay)
+                //    MouseDoubleClickLeft();
+                //else
+                //    MouseLeftClick();
 
-            //    InputManager.LastMouseLeftClick = gameTime.TotalGameTime;
-            //}
-            //else if (InputManager.MouseState.LeftButton == ButtonState.Pressed)
-            //{
-            //    if (InputManager.LastMouseState.X != InputManager.MouseState.X ||
-            //        InputManager.LastMouseState.Y != InputManager.MouseState.Y)
-            //        MouseDrag();
-            //}
-            //else if (InputManager.MouseState.LeftButton == ButtonState.Released &&
-            //         InputManager.LastMouseState.LeftButton == ButtonState.Pressed)
-            //{
-            //    MouseUp(MouseButton.Left);
-            //}
+                InputManager.LastMouseLeftClick = gameTime.TotalGameTime;
+            }
+            else if (InputManager.MouseState.LeftButton == ButtonState.Pressed)
+            {
+                MouseDown(MouseButton.Left);
+                
+                //if (InputManager.LastMouseState.X != InputManager.MouseState.X || InputManager.LastMouseState.Y != InputManager.MouseState.Y)
+                //{
+                //    MouseDrag();
+                //}
+            }
+            else if (InputManager.MouseState.LeftButton == ButtonState.Released && InputManager.LastMouseState.LeftButton == ButtonState.Pressed)
+            {
+                MouseUp(MouseButton.Left);
+            }
 
-            //#endregion
+            #endregion
 
             //if (InputManager.MouseState.ScrollWheelValue != InputManager.LastMouseState.ScrollWheelValue)
             //{
@@ -257,6 +275,19 @@ namespace GravityEater
 
             InputManager.LastMouseState = InputManager.MouseState;
         }
+
+        private void MouseUp(MouseButton left)
+        {
+            if (Scenes.ContainsKey(State))
+                Scenes[State].MouseUp(left);
+        }
+
+        private void MouseDown(MouseButton mouseButton)
+        {
+            if (Scenes.ContainsKey(State))
+                Scenes[State].MouseDown(mouseButton);
+        }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>

@@ -142,6 +142,15 @@ namespace GravityEater.Lib
             return orientation;
         }
 
+        public static Vector2 GetVectorFromAngle(float angle)
+        {
+            var vector = new Vector2((float)Math.Sin(angle), -(float)Math.Cos(angle));
+
+            vector.Normalize();
+
+            return vector;
+        }
+
         public static float GetAngleFromVector(Vector2 direction)
         {
             float angle = -1;

@@ -20,7 +20,10 @@ namespace GravityEater.Lib.AI
                 Vector2 diff = (target - model.Position);
                 float angle = MathHelper.ToDegrees((float) Math.Atan2(diff.Y, diff.X));
                 angle = angle < 0 ? angle + 360 : angle;
+
                 return MapHelper.GetVectorFromDirection(MapHelper.GetDirectionFromAngle(angle));
+
+                //return MapHelper.GetVectorFromAngle(angle);
             }
             return Vector2.Zero;
         }
@@ -32,6 +35,7 @@ namespace GravityEater.Lib.AI
                 float angle = MapHelper.GetAngleBetweenPoints(character, target);
                 angle = angle < 0 ? angle + 360 : angle;
                 return MapHelper.GetVectorFromDirection(MapHelper.GetDirectionFromAngle(angle));
+                //return MapHelper.GetVectorFromAngle(angle);
             }
             return Vector2.Zero;
         }
@@ -122,8 +126,7 @@ namespace GravityEater.Lib.AI
             return CollisedWithNeighbour;
         }
 
-        public static bool HasFutureCollision(Character character, Vector2 characterMovement,
-            List<GameObject> gameObjects)
+        public static bool HasFutureCollision(Character character, Vector2 characterMovement, List<GameObject> gameObjects)
         {
             foreach (GameObject item in gameObjects)
             {

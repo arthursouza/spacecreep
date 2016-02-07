@@ -6,8 +6,6 @@ namespace GravityEater.Lib.Input
 {
     public static class InputManager
     {
-        public static Vector2 MovementInput { get; set; }
-
         public static Vector2 MousePosition
         {
             get { return new Vector2(MouseState.X, MouseState.Y); }
@@ -41,7 +39,9 @@ namespace GravityEater.Lib.Input
             }
         }
 
-        public static Vector2 MovementVector
+        public static Vector2 MovementVector { get; set; }
+
+        public static Vector2 MovementInput
         {
             get
             {

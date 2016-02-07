@@ -43,5 +43,9 @@ namespace GravityEater.Lib.Scene
         public virtual void Load()
         {
         }
+
+        public virtual void MouseDown(MouseButton button)
+        {
+        }
     }
 }

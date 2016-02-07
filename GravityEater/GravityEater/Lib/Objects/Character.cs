@@ -51,6 +51,10 @@ namespace GravityEater.Lib.Objects
         public string Name
         { get; set; }
 
+        public float Hp { get; set; }
+
+        public float MaxHp { get; set; }
+
         public Vector2 BodyCenter
         {
             get { return new Vector2(Position.X, Position.Y - CharSprite.Height/2); }
@@ -291,10 +295,10 @@ namespace GravityEater.Lib.Objects
         {
             if (GameConfig.Config.ShowHud)
             {
-                if (IsAlive)
+                if (IsAlive && !(this is Enemy))
                 {
                     //DrawName(spriteBatch);
-                    DrawHpBars(spriteBatch);
+                    //DrawHpBars(spriteBatch);
                 }
             }
 
@@ -305,33 +309,33 @@ namespace GravityEater.Lib.Objects
         {
             if (IsAlive)
             {
-                int barWidth = 64;
-                int barHeight = 7;
-                //int healthPerc = MaxHp > 0 ? (Hp * 100) / MaxHp : 0;
-                //int currentBarSize = (healthPerc*barWidth)/100;
+                int barWidth = 128;
+                int barHeight = 64;
+                float healthPerc = MaxHp > 0 ? (Hp * 100) / MaxHp : 0;
+                float currentBarSize = (healthPerc*barWidth)/100;
 
                 Texture2D healthBar = GameGraphics.CharacterHpBar;
-                Texture2D healthBarBackground = GameGraphics.CharacterHpBar;
+                Texture2D healthBarBackground = GameGraphics.CharacterHpBarBg;
 
                 Vector2 size = new Vector2(CharSprite.Width, CharSprite.Height);
 
-                //spriteBatch.Draw(
-                //    healthBarBackground,
-                //    new Rectangle(
-                //        (int) (Position).X - barWidth/2,
-                //        (int) (Position).Y - (int) size.Y,
-                //        barWidth,
-                //        barHeight),
-                //    Color.White);
+                spriteBatch.Draw(
+                    healthBarBackground,
+                    new Rectangle(
+                        (int) (Position).X - barWidth/2,
+                        (int) (Position).Y - (int) size.Y,
+                        barWidth,
+                        barHeight),
+                    Color.White);
 
-                //spriteBatch.Draw(
-                //    healthBar,
-                //    new Rectangle(
-                //        (int) Position.X - barWidth/2,
-                //        (int) Position.Y - (int) size.Y,
-                //        currentBarSize,
-                //        barHeight),
-                //    Color.White);
+                spriteBatch.Draw(
+                    healthBar,
+                    new Rectangle(
+                        (int) Position.X - barWidth/2,
+                        (int) Position.Y - (int) size.Y,
+                        (int)currentBarSize,
+                        barHeight),
+                    Color.White);
             }
         }
 
