@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using LotusLibrary;
 
 namespace GravityEater
 {
@@ -23,6 +24,8 @@ namespace GravityEater
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
+        public Song Music;
+
         private readonly GraphicsDeviceManager graphics;
         private GameState _state;
         private GameState nextState;
@@ -45,6 +48,18 @@ namespace GravityEater
         public Map CurrentMap { get; set; }
         public Character Player { get; set; }
         public TimeSpan TimePlayed { get; set; }
+
+        public List<int> HighScores { get; set; }
+
+        public int Points { get; private set; }
+
+        public void ChangePoints(int value)
+        {
+            Points += value;
+
+            if (Points < 0)
+                Points = 0;
+        }
 
         private void SetResolution()
         {
@@ -76,7 +91,7 @@ namespace GravityEater
             Paused = false;
             
             IsFixedTimeStep = false;
-
+            HighScores = new List<int>();
             SetResolution();
         }
 
@@ -85,12 +100,6 @@ namespace GravityEater
             
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
             BasicEffect = new BasicEffect(graphics.GraphicsDevice)
@@ -113,24 +122,26 @@ namespace GravityEater
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
-            var monsterTexture = Content.Load<Texture2D>("MonsterSprite2");
+            #region Load Stuff
             GameGraphics.MonsterSpriteIdle = Content.Load<Texture2D>("MonsterSpriteIdle");
             GameGraphics.SpaceTextures = Content.Load<Texture2D>("SpaceTileset");
-            GameGraphics.SpaceTextures2 = Content.Load<Texture2D>("SpaceTileset2");
+            //GameGraphics.SpaceTextures2 = Content.Load<Texture2D>("SpaceTileset2");
             GameGraphics.SpaceTextures3 = Content.Load<Texture2D>("SpaceTileset3");
             GameGraphics.Ship1 = Content.Load<Texture2D>("Ships/Ship1");
+            GameGraphics.Ship2 = Content.Load<Texture2D>("Ships/Ship2");
+
+
             GameGraphics.BigShip1 = Content.Load<Texture2D>("Ships/BigShip1Flat");
+
+
+
             GameGraphics.Explosion1 = Content.Load<Texture2D>("Explosion1");
             GameGraphics.Star1 = Content.Load<Texture2D>("RandomStuff/Star1");
             GameGraphics.Planet1 = Content.Load<Texture2D>("Planet1");
-            GameGraphics.CharacterHpBar = Content.Load<Texture2D>("Interface/HpBar");
-            GameGraphics.CharacterHpBarBg = Content.Load<Texture2D>("Interface/HpBarBack");
+            GameGraphics.CharacterHpBar = Content.Load<Texture2D>("Interface/HpBar2");
+            GameGraphics.CharacterHpBarBg = Content.Load<Texture2D>("Interface/HpBarBack2");
             GameGraphics.HealthKit = Content.Load<Texture2D>("HealthKit1");
             GameGraphics.MonsterTrack = Content.Load<Texture2D>("MonsterTrack");
             GameGraphics.SelectedItemTexture = Content.Load<Texture2D>("selectedItemTexture");
@@ -138,18 +149,23 @@ namespace GravityEater
             GameGraphics.Menu1 = Content.Load<Texture2D>("Menu1");
             GameGraphics.Menu2 = Content.Load<Texture2D>("Menu2");
 
+            GameGraphics.GameOverMenu1 = Content.Load<Texture2D>("GameOverMenu1");
+            GameGraphics.GameOverMenu2 = Content.Load<Texture2D>("GameOverMenu2");
+
             GameGraphics.SoundExplosion = Content.Load<SoundEffect>("Sounds/Explosion");
             GameGraphics.SoundExplosionBig = Content.Load<SoundEffect>("Sounds/BigExplosion");
             GameGraphics.SoundHeal = Content.Load<SoundEffect>("Sounds/Heal");
+            GameGraphics.SoundSelect = Content.Load<SoundEffect>("Sounds/Select1");
+            Music = Content.Load<Song>("Sounds/Searching");
+            GameGraphics.MonsterSpriteAttack = Content.Load<Texture2D>("MonsterSprite2");
+            #endregion
 
-            Player = new Character(new SpriteAnimation(GameGraphics.MonsterSpriteIdle, 200, 11))
-            {
-                Position = MapHelper.GetPixelsFromTileCenter(new Vector2(3, 3)),
-                MaxHp = 100,
-                Hp = 100
-            };
+            MediaPlayer.Play(Music);
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume = 0.3f;
+
+            NewGame();
             
-
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -157,35 +173,71 @@ namespace GravityEater
             GameGraphics.Load(Content);
 
             Scenes[GameState.MainMenu] = new MainMenuScene(this);
-            //Scenes[GameState.LoadGame] = new LoadGameScene(this);
-            //Scenes[GameState.Help] = new HelpScene(this);
-            //Scenes[GameState.GameStatsHelp] = new GameStatsHelpScene(this);
             Scenes[GameState.GameStarted] = new GameStartedScene(this);
-            //Scenes[GameState.NewGame] = new NewGameScene(this);
+            Scenes[GameState.GameOver] = new GameOverScene(this);
+
             State = GameState.MainMenu;
-            // TODO: use this.Content to load your game content here
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
+        public void NewGame()
+        {
+            Player = new Character(new SpriteAnimation(GameGraphics.MonsterSpriteIdle, 200, 11))
+            {
+                Position = MapHelper.GetPixelsFromTileCenter(new Vector2(3, 3)),
+                MaxHp = 100,
+                Hp = 100
+            };
+
+            Points = 0;
+
+            Player.AttackSprite = new SpriteAnimation(GameGraphics.MonsterSpriteAttack, 200, 4);
+
+            #region GenerateMap
+            var firstMap = new Map
+            {
+                Height = 50,
+                Width = 50,
+                Tileset = new Tileset()
+                {
+                    Columns = 4,
+                    TextureMap = GameGraphics.SpaceTextures3,
+                    TileSize = 64
+                },
+                Layers = new List<MapLayer>()
+                {
+                    new MapLayer(50, 50)
+                }
+            };
+
+            var textureMap = new int[50, 50];
+
+            var rand = new Random(DateTime.Now.Millisecond);
+            for (int y = 0; y < 50; y++)
+            {
+                for (int x = 0; x < 50; x++)
+                {
+                    textureMap[x, y] = rand.Next(0, 16);
+                }
+            }
+
+            CurrentMap = firstMap;
+
+            firstMap.Layers[0].Map = textureMap;
+            #endregion
+        }
+
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
         }
-
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        
         protected override void Update(GameTime gameTime)
         {
             TimePlayed = TimePlayed.Add(new TimeSpan(0, 0, 0, 0, (int)gameTime.ElapsedGameTime.TotalMilliseconds));
 
             UpdateMouse(gameTime);
             UpdateKeyboard();
+
 
             if (CurrentTransition != null)
                 CurrentTransition.Update(gameTime);
@@ -202,6 +254,15 @@ namespace GravityEater
         private void UpdateKeyboard()
         {
             InputManager.KeyboardState = Keyboard.GetState();
+
+            if (InputManager.KeyPress(Keys.OemPlus))
+            {
+                MediaPlayer.Volume += 0.1f;
+            }
+            if (InputManager.KeyPress(Keys.OemMinus))
+            {
+                MediaPlayer.Volume -= 0.1f;
+            }
 
             if (Scenes.ContainsKey(State))
                 Scenes[State].UpdateKeyboardInput();
@@ -288,10 +349,6 @@ namespace GravityEater
                 Scenes[State].MouseDown(mouseButton);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);

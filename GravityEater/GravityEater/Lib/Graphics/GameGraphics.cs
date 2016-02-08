@@ -57,6 +57,11 @@ namespace GravityEater.Lib.Graphics
         public static SoundEffect SoundExplosion { get; internal set; }
         public static SoundEffect SoundExplosionBig { get; set; }
         public static SoundEffect SoundHeal { get; set; }
+        public static Texture2D MonsterSpriteAttack { get; internal set; }
+        public static Texture2D GameOverMenu1 { get; set; }
+        public static Texture2D GameOverMenu2 { get; set; }
+        public static Texture2D Ship2 { get; set; }
+        public static SoundEffect SoundSelect { get; set; }
 
         public static void Load(ContentManager content)
         {

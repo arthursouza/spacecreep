@@ -18,6 +18,9 @@ namespace GravityEater.Lib.Objects
         private float dashTimer;
         private Vector2 lastDirection;
 
+        private float attackTimer = 0f;
+        private float attackDelay = 800f;
+
         #region Timers
 
         private float currentTurnTimer;
@@ -35,7 +38,9 @@ namespace GravityEater.Lib.Objects
         private float runningSpeedModifier = 2.3f;
 
         #endregion
-        
+
+        public bool Attacking = false;
+
         public bool IsPlayer
         { get; set; }
 
@@ -103,8 +108,25 @@ namespace GravityEater.Lib.Objects
                 //UpdateSkillsCooldown(gameTime);
             }
 
-            CharSprite.Update(gameTime);
-            CharSprite.Animate();
+            if (!Attacking)
+            {
+                attackTimer = 0f;
+                
+                CharSprite.Update(gameTime);
+                CharSprite.Animate();
+            }
+            else
+            {
+                attackTimer += (float) gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (attackTimer >= attackDelay)
+                {
+                    Attacking = false;
+                }
+
+                AttackSprite.Update(gameTime);
+                AttackSprite.Animate();
+            }
         }
         
         public bool IsInRange(GameObject target)
@@ -301,8 +323,15 @@ namespace GravityEater.Lib.Objects
                     //DrawHpBars(spriteBatch);
                 }
             }
-
-            CharSprite.Draw(spriteBatch, Position, 1, 0);
+            
+            if (!Attacking)
+            {
+                CharSprite.Draw(spriteBatch, Position, 1, 0);
+            }
+            else
+            {
+                AttackSprite.Draw(spriteBatch, Position, 1, 0);
+            }
         }
 
         private void DrawHpBars(SpriteBatch spriteBatch)
@@ -352,5 +381,10 @@ namespace GravityEater.Lib.Objects
         //}
 
         #endregion
+
+        public void StartAttack()
+        {
+            Attacking = true;
+        }
     }
 }

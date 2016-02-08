@@ -12,13 +12,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace GravityEater.Lib.Scene
 {
     public class GameStartedScene : Scene
     {
-        public List<SoundEffect> SoundEffects { get; set; }
-
         public List<dynamic> EnemyTypes = new List<dynamic>()
         {
             new
@@ -41,15 +40,6 @@ namespace GravityEater.Lib.Scene
         private float trackDelay = 300f;
         private float trackTimer = 0f;
 
-        public int Points { get; private set; }
-
-        public void ChangePoints(int value)
-        {
-            Points += value;
-
-            if (Points < 0)
-                Points = 0;
-        }
 
         private List<GameObject> gameObjects;
 
@@ -77,39 +67,6 @@ namespace GravityEater.Lib.Scene
             Game = game;
             gameObjects = new List<GameObject>();
             Maps = new List<Map.Map>();
-
-            var firstMap = new Map.Map
-            {
-                Height = 50,
-                Width = 50,
-                Tileset = new Tileset()
-                {
-                    Columns = 4,
-                    TextureMap = Graphics.GameGraphics.SpaceTextures3,
-                    TileSize = 64
-                },
-                Layers = new List<MapLayer>()
-                {
-                    new MapLayer(50, 50)
-                }
-            };
-
-            var textureMap = new int[50, 50];
-
-            var rand = new Random(DateTime.Now.Millisecond);
-            for (int y = 0; y < 50; y++)
-            {
-                for (int x = 0; x < 50; x++)
-                {
-                    textureMap[x, y] = rand.Next(0, 16);
-                }
-            }
-
-            Game.CurrentMap = firstMap;
-
-            firstMap.Layers[0].Map = textureMap;
-
-            SoundEffects = new List<SoundEffect>();
         }
 
         public override void Draw(GameTime gameTime)
@@ -157,7 +114,7 @@ namespace GravityEater.Lib.Scene
 
             DrawResourceBar(spriteBatch, new Vector2(30, 30), (int)Player.MaxHp, (int)Player.Hp, Player.Hp / Player.MaxHp * 100, Color.White);
 
-            spriteBatch.DrawString(Fonts.ArialBlack14, Points.ToString(), new Vector2(30, GameConfig.Config.WindowHeight - 40), Color.LightBlue);
+            spriteBatch.DrawString(Fonts.ArialBlack14, Game.Points.ToString(), new Vector2(30, GameConfig.Config.WindowHeight - 40), Color.LightBlue);
 
             spriteBatch.End();
         }
@@ -289,6 +246,7 @@ namespace GravityEater.Lib.Scene
 
         public override void UpdateKeyboardInput()
         {
+
             //InputManager.MovementVector = Vector2.Zero;
 
             //if (InputManager.KeyPress(InputConfiguration.Config.Inventory))
@@ -486,11 +444,14 @@ namespace GravityEater.Lib.Scene
                     //enemy.Behavior.Update(gameTime, enemy, gameObjects);
                     UpdateEnemyBehavior(enemy);
 
+                    // ATTACK ENEMY
                     if (Player.IsInRange(enemy.Position, enemy.CollisionRadius + Player.CollisionRadius + 10) && enemy.PlayerKillable)
                     {
                         Player.Hp -= enemy.Damage;
                         Player.Hp += enemy.Heal;
-                        ChangePoints(enemy.Points);
+                        Game.ChangePoints(enemy.Points);
+
+                        Player.StartAttack();
 
                         KillEnemy(enemy, true);
                     }
@@ -545,6 +506,10 @@ namespace GravityEater.Lib.Scene
             else if (deadEnemy.UniqueObjectId == 2)
             {
                 SpawnBigShips(1);
+            }
+            else if (deadEnemy.UniqueObjectId == 4)
+            {
+                SpawnCreepShips2(1);
             }
         }
 
@@ -768,9 +733,9 @@ namespace GravityEater.Lib.Scene
 
             enemy.IsAlive = false;
 
-            #region Ship1
+            #region Creep ship
 
-            if (enemy.UniqueObjectId == 1)
+            if (enemy.UniqueObjectId == 1 || enemy.UniqueObjectId == 4)
             {
                 if (byPlayer)
                 { 
@@ -849,8 +814,8 @@ namespace GravityEater.Lib.Scene
             }
 
             #endregion
-
-
+            
+            #region Buff Kit
             if (enemy.UniqueObjectId == 3)
             {
                 if (byPlayer)
@@ -858,6 +823,7 @@ namespace GravityEater.Lib.Scene
                     GameGraphics.SoundHeal.Play();
                 }
             }
+            #endregion
 
             AliveNpcs.FindAll(x => x.Target == enemy).ForEach(x => x.Target = null);
 
@@ -882,28 +848,6 @@ namespace GravityEater.Lib.Scene
         public void SetupPlayer()
         {
             Player.IsPlayer = true;
-
-            //Player.HealthChanged += CharacterHealthChanged;
-            //Player.LevelChanged += PlayerLevelChanged;
-
-            //if (Game.CurrentSave.Position == Vector2.Zero)
-            //{
-            //    Player.Position = MapHelper.GetPixelsFromTileCenter(Game.GameManager.StartupMapPosition);
-            //}
-            //else
-            //{
-            //    Player.Position = Game.CurrentSave.Position;
-            //}
-
-            //Player.MovementEngine = new MovementEngine(Game.CurrentMap.CollisionLayer, 10);
-
-            //LoadHotkeys();
-            //if (Player.Inventory.Count == 0)
-            //{
-            //    //Cheats.AddAllItems(Player);
-            //    //Cheats.AddAllItems(Player);
-            //    //Cheats.AddAllItems(Player);
-            //}
         }
 
         public void DrawOnScreenLog(SpriteBatch batch)
@@ -931,22 +875,21 @@ namespace GravityEater.Lib.Scene
 
         public override void Load()
         {
+            this.Game.NewGame();
+
             LoadGameObjects();
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
-            //LoadIngameMenus();
-            //LoadInterfaceInformation();
             CreateGameObjectList();
             SetupPlayer();
-            //attackQueue = new List<MeleeAttack>();
-            //Game.PlayerQuests = new List<Quest>();
             base.Load();
         }
 
         private void LoadGameObjects()
         {
-            SpawnCreepShips(200);
-            SpawnBigShips(50);
-            SpawnRandomStars(100);
+            SpawnCreepShips(110);
+            SpawnCreepShips2(110);
+            SpawnBigShips(60);
+            SpawnRandomStars(300);
         }
 
         private void SpawnRandomStars(int amount)
@@ -1079,7 +1022,52 @@ namespace GravityEater.Lib.Scene
                     Name = "Ship1",
                     Points = 10,
                     Damage = 2,
-                    Heal = 1
+                    Heal = 0
+                };
+
+                ship.NewTargetPosition(Game.CurrentMap);
+
+                ships.Add(ship);
+            }
+
+            if (Game.CurrentMap != null)
+            {
+                Game.CurrentMap.MapEnemies.AddRange(ships);
+            }
+        }
+
+        private void SpawnCreepShips2(int amount)
+        {
+            var ships = new List<Enemy>();
+
+            Random r = new Random(DateTime.Now.Millisecond);
+
+            var tileList = new List<Vector2>();
+
+            for (int i = 0; i < amount; i++)
+            {
+                var position = new Vector2(r.Next(0, Game.CurrentMap.Width + 1), r.Next(0, Game.CurrentMap.Height + 1));
+
+                while (tileList.Contains(position))
+                {
+                    position = new Vector2(r.Next(0, Game.CurrentMap.Width + 1), r.Next(0, Game.CurrentMap.Height + 1));
+                }
+
+                tileList.Add(position);
+
+                var ship = new Enemy()
+                {
+                    CharSprite = new SpriteAnimation(GameGraphics.Ship2, 300, 4),
+                    Position = MapHelper.GetPixelsFromTileCenter(position),
+                    Behavior = Enemy.BehaviorType.Fleeing,
+                    StepSize = 4,
+                    PlayerKillable = true,
+                    CollisionRadius = 20,
+                    UniqueObjectId = 4,
+                    Name = "Ship2",
+                    Points = 15,
+                    Damage = 3,
+                    Heal = 0
                 };
 
                 ship.NewTargetPosition(Game.CurrentMap);
@@ -1127,7 +1115,7 @@ namespace GravityEater.Lib.Scene
                     Name = "HealthKit",
                     Damage = 0,
                     Points = 5,
-                    Heal = 15
+                    Heal = 10
                 };
 
                 kit.NewTargetPosition(Game.CurrentMap);

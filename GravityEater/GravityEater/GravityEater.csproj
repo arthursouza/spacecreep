@@ -16,7 +16,7 @@
     <XnaProfile>Reach</XnaProfile>
     <XnaCrossPlatformGroupID>9ea5fc2f-f48d-4715-952c-56e5d1ff3fb7</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
-    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -78,6 +78,7 @@
     <Compile Include="Lib\AI\EnumBehaviorType.cs" />
     <Compile Include="Lib\Animation.cs" />
     <Compile Include="Lib\BehaviorEngine.cs" />
+    <Compile Include="Lib\Buff.cs" />
     <Compile Include="Lib\Camera.cs" />
     <Compile Include="Lib\Drawing.cs" />
     <Compile Include="Lib\Fonts.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Lib\MapHelper.cs" />
     <Compile Include="Lib\Objects\NPC.cs" />
     <Compile Include="Lib\Scene\GameStartedScene.cs" />
+    <Compile Include="Lib\Scene\GameOverScene.cs" />
     <Compile Include="Lib\Scene\MainMenuScene.cs" />
     <Compile Include="Lib\Serializer.cs" />
     <Compile Include="Lib\Sprite\SpriteAnimation.cs" />
@@ -114,6 +116,7 @@
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
+    <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GravityEaterContent\GravityEaterContent.contentproj">
