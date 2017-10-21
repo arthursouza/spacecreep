@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "SpaceCreep\Content\Content.contentproj", "{0D3EB184-50D2-49A4-87F3-7D6EA00C0A35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "SpaceCreep\Client\Client.csproj", "{C3AC2FF1-1BA8-43BA-AB20-5ABD3789AF01}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D3EB184-50D2-49A4-87F3-7D6EA00C0A35}.Debug|x86.ActiveCfg = Debug|x86
+		{0D3EB184-50D2-49A4-87F3-7D6EA00C0A35}.Release|x86.ActiveCfg = Release|x86
+		{C3AC2FF1-1BA8-43BA-AB20-5ABD3789AF01}.Debug|x86.ActiveCfg = Debug|x86
+		{C3AC2FF1-1BA8-43BA-AB20-5ABD3789AF01}.Debug|x86.Build.0 = Debug|x86
+		{C3AC2FF1-1BA8-43BA-AB20-5ABD3789AF01}.Release|x86.ActiveCfg = Release|x86
+		{C3AC2FF1-1BA8-43BA-AB20-5ABD3789AF01}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
