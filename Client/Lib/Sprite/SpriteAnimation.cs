@@ -55,10 +55,9 @@ namespace SpaceCreep.Client.Lib.Sprite
 
         public float Interval { get; }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTimeParam)
         {
-            this.gameTime = gameTime;
-            this.gameTime = gameTime;
+            gameTime = gameTimeParam;
             var currentCol = currentFrame % (int) SpriteFormat.X;
             var currentLine = currentFrame / (int) SpriteFormat.X;
             sourceRect = new Rectangle(currentCol * Width, currentLine * Height, Width, Height);

@@ -15,7 +15,7 @@ namespace SpaceCreep.Client.Lib.Scene
         public MainMenuScene(Game game)
         {
             Game = game;
-            spriteBatch = new SpriteBatch(Game.GraphicsDevice);
+            SpriteBatch = new SpriteBatch(Game.GraphicsDevice);
         }
 
         public override void MouseClick(MouseButton button)
@@ -52,17 +52,17 @@ namespace SpaceCreep.Client.Lib.Scene
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin();
+            SpriteBatch.Begin();
             if (play)
-                spriteBatch.Draw(GameGraphics.Menu2, Game.GraphicsDevice.Viewport.Bounds, Color.White);
+                SpriteBatch.Draw(GameGraphics.Menu2, Game.GraphicsDevice.Viewport.Bounds, Color.White);
             else
-                spriteBatch.Draw(GameGraphics.Menu1, Game.GraphicsDevice.Viewport.Bounds, Color.White);
+                SpriteBatch.Draw(GameGraphics.Menu1, Game.GraphicsDevice.Viewport.Bounds, Color.White);
 
             //mainMenu.Draw(spriteBatch);
 
             //spriteBatch.Draw(GameGraphics.SelectedItemTexture, playButton, Color.White);
 
-            spriteBatch.End();
+            SpriteBatch.End();
         }
 
         public override void MouseDown(MouseButton button)

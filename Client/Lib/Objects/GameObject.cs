@@ -18,8 +18,16 @@ namespace SpaceCreep.Client.Lib.Objects
 
         public int CompareTo(object obj)
         {
-            var result = Position.Y.CompareTo((obj as GameObject).Position.Y);
-            return result == 0 ? Position.X.CompareTo((obj as GameObject).Position.X) : result;
+            var gameObject = obj as GameObject;
+
+            if (gameObject == null)
+            {
+                throw new ArgumentException("The argument is not a GameObject");
+            }
+
+            var result = Position.Y.CompareTo(gameObject.Position.Y);
+            return result == 0 ? Position.X.CompareTo(gameObject.Position.X) : result;
+            
         }
 
         public abstract void Draw(SpriteBatch batch);

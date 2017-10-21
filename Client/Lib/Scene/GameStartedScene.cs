@@ -42,35 +42,25 @@ namespace SpaceCreep.Client.Lib.Scene
         {
             Game = game;
             gameObjects = new List<GameObject>();
-            Maps = new List<Map.Map>();
         }
-
-        private Character Player
-        {
-            get { return Game.Player; }
-            set { Game.Player = value; }
-        }
-
+        
         private List<Enemy> AliveEnemies
         {
             get { return Game.CurrentMap.MapEnemies.FindAll(x => x.IsAlive); }
         }
         
-
-        private List<Map.Map> Maps { get; }
-
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null,
+            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null,
                 Camera.ScaleMatrix);
-            Game.CurrentMap?.Draw(spriteBatch, Game.CurrentMap.Tileset, true);
-            spriteBatch.End();
+            Game.CurrentMap?.Draw(SpriteBatch, Game.CurrentMap.Tileset, true);
+            SpriteBatch.End();
 
             var renderList = new List<GameObject>();
             renderList.AddRange(gameObjects);
             renderList.Sort();
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null,
+            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null,
                 Camera.ScaleMatrix);
 
             Game.BasicEffect.Projection = Matrix.CreateOrthographicOffCenter(
@@ -87,57 +77,46 @@ namespace SpaceCreep.Client.Lib.Scene
             if (GameConfig.Config.DebugMode)
             {
                 //    Game.CurrentMap.CollisionLayer.Draw(spriteBatch);
-                renderList.ForEach(x => x.DrawCollisionBounds(spriteBatch));
+                renderList.ForEach(x => x.DrawCollisionBounds(SpriteBatch));
 
-                spriteBatch.Draw(GameGraphics.MovementCrosshair,
+                SpriteBatch.Draw(GameGraphics.MovementCrosshair,
                     new Rectangle(
-                        (int) (Player.Position.X - GameGraphics.MovementCrosshair.Width / 2),
-                        (int) (Player.Position.Y - GameGraphics.MovementCrosshair.Height / 2),
+                        (int) (Game.Player.Position.X - GameGraphics.MovementCrosshair.Width / 2),
+                        (int) (Game.Player.Position.Y - GameGraphics.MovementCrosshair.Height / 2),
                         GameGraphics.MovementCrosshair.Width, GameGraphics.MovementCrosshair.Height),
                     Color.White);
 
                 if (InputManager.MovementVector != Vector2.Zero)
-                    Drawing.DrawLine(Game.GraphicsDevice, Player.Position,
-                        Player.Position + InputManager.MovementVector * 100, Color.White);
+                    Drawing.DrawLine(Game.GraphicsDevice, Game.Player.Position, Game.Player.Position + InputManager.MovementVector * 100, Color.White);
             }
 
             #endregion
 
-            Game.CurrentMap?.Animations.ForEach(x => x.Draw(spriteBatch));
+            Game.CurrentMap?.Animations.ForEach(x => x.Draw(SpriteBatch));
 
-            renderList.ForEach(x => x.Draw(spriteBatch));
-
-            //Game.CurrentMap.Draw(spriteBatch, Game.CurrentMap.Tileset, true);
-
-            //DrawFloatingText();
-            //DrawDialogs();
-
+            renderList.ForEach(x => x.Draw(SpriteBatch));
+            
             if (GameConfig.Config.DebugMode)
                 DrawDebugInfo();
 
-            spriteBatch.End();
+            SpriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
-            DrawResourceBar(new Vector2(30, 30), Player.Hp / Player.MaxHp * 100);
+            DrawResourceBar(new Vector2(30, 30), Game.Player.Hp / Game.Player.MaxHp * 100);
 
-            spriteBatch.DrawString(Fonts.Arial12, Game.Points.ToString(), new Vector2(30, GameConfig.Config.WindowHeight - 40), Color.LightBlue);
+            SpriteBatch.DrawString(Fonts.Arial12, Game.Points.ToString(), new Vector2(30, GameConfig.Config.WindowHeight - 40), Color.LightBlue);
 
-            spriteBatch.End();
+            SpriteBatch.End();
         }
 
         public override void MouseDown(MouseButton button)
         {
-            InputManager.MovementVector = Steering.Seek(Player, InputManager.MouseToMapVector);
         }
 
         private void DrawDebugInfo()
         {
-            Drawing.DrawText(spriteBatch, Fonts.Arial12, "Pos:" + Player.Position,
-                Camera.Position + new Vector2(20, 20), Color.White, true);
-            //Drawing.DrawText(spriteBatch, Fonts.Arial12, "Action:" + Player.ActionState.ToString(), Camera.Position + new Vector2(20, 20), Color.White, true);
-            //Drawing.DrawText(spriteBatch, Fonts.Arial12, "Animation:" + Player.CharSprite.CurrentAnimationType.ToString(), Camera.Position + new Vector2(20, 40), Color.White, true);
-            DrawOnScreenLog(spriteBatch);
+            Drawing.DrawText(SpriteBatch, Fonts.Arial12, "Pos:" + Game.Player.Position, Camera.Position + new Vector2(20, 20), Color.White, true);
         }
 
         private void DrawResourceBar(Vector2 position, float percentage)
@@ -170,10 +149,10 @@ namespace SpaceCreep.Client.Lib.Scene
                 bar.Height);
 
             // Draw background
-            spriteBatch.Draw(GameGraphics.CharacterHpBarBg, backgroundRect, Color.White);
+            SpriteBatch.Draw(GameGraphics.CharacterHpBarBg, backgroundRect, Color.White);
 
             // Draw bar
-            spriteBatch.Draw(GameGraphics.CharacterHpBar, innerRect, innerRectSource, Color.White);
+            SpriteBatch.Draw(GameGraphics.CharacterHpBar, innerRect, innerRectSource, Color.White);
         }
 
         public override void Update(GameTime gameTime)
@@ -185,41 +164,8 @@ namespace SpaceCreep.Client.Lib.Scene
                 UpdateEnemies(gameTime);
                 UpdateAnimations(gameTime);
             }
-
-            //Game.ChangePoints(new Random((int)DateTime.Now.Millisecond).Next(123123, 1231232));
-            //Player.Hp = 0;
-
-            //for (int i = 0; i < Projectiles.Count; i++)
-            //{
-            //    Projectile projectile = Projectiles[i];
-            //    projectile.Update(gameTime);
-            //    bool hitTarget = false;
-
-            //    foreach (Enemy e in AliveEnemies)
-            //    {
-            //        if (e.CollidesWithObject(projectile))
-            //        {
-            //            var args = new AttackEventArgs(Player, e, -10, true);
-            //            e.ChangeHealth(args, true);
-            //            Projectiles.RemoveAt(i);
-            //            i--;
-            //            hitTarget = true;
-            //            break;
-            //        }
-            //    }
-
-            //    if (hitTarget)
-            //        break;
-
-            //    if (projectile.CurrentRange > projectile.MaxRange)
-            //    {
-            //        Projectiles.RemoveAt(i);
-            //        i--;
-            //        break;
-            //    }
-            //}
-
-            Camera.LockToTarget(Player.Position, GameConfig.Config.WindowWidth, GameConfig.Config.WindowHeight);
+            
+            Camera.LockToTarget(Game.Player.Position, GameConfig.Config.WindowWidth, GameConfig.Config.WindowHeight);
 
             Camera.Update(gameTime);
 
@@ -230,66 +176,6 @@ namespace SpaceCreep.Client.Lib.Scene
 
         public override void UpdateKeyboardInput()
         {
-            //InputManager.MovementVector = Vector2.Zero;
-
-            //if (InputManager.KeyPress(InputConfiguration.Config.Inventory))
-            //{
-            //    ToggleMenuWindow(inventoryWindow);
-            //}
-            //else if (InputManager.KeyPress(InputConfiguration.Config.QuestLog))
-            //{
-            //    ToggleMenuWindow(questWindow);
-            //}
-            //else if (InputManager.KeyPress(InputConfiguration.Config.CharacterInformation))
-            //{
-            //    ToggleMenuWindow(statsWindow);
-            //}
-            //else if (InputManager.KeyboardState.IsKeyDown(Keys.Z))
-            //    Camera.ResetCamera();
-
-            //if (InputManager.KeyboardState.IsKeyDown(Keys.LeftControl) && InputManager.KeyPress(Keys.D))
-            //{
-            //    if (GameConfig.Config.DebugMode)
-            //        ToggleMenuWindow(debugWindow);
-            //}
-
-            //// Toggle fullscreen
-            //if (InputManager.KeyPress(Keys.Enter) &&
-            //    (InputManager.KeyboardState.IsKeyDown(Keys.LeftAlt) ||
-            //     InputManager.KeyboardState.IsKeyDown(Keys.RightAlt)))
-            //{
-            //    GameConfig.Config.FullScreen = !GameConfig.Config.FullScreen;
-            //}
-            //else if (InputManager.KeyPress(Keys.Escape))
-            //{
-            //    if (gamePausedMenu.Visible)
-            //    {
-            //        gamePausedMenu.Visible = false;
-
-            //        if (!AnyWindowsOnscreen())
-            //        {
-            //            Game.Paused = false;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        gamePausedMenu.Visible = true;
-            //        Game.Paused = true;
-            //    }
-            //}
-            //else
-            //{
-            //InputManager.MovementInput = InputManager.MovementVector;
-
-            //    for (int i = 0; i < InputConfiguration.Config.Hotkeys.Count; i++)
-            //    {
-            //        if (InputManager.KeyPress(InputConfiguration.Config.Hotkeys[i]))
-            //        {
-            //            if (hotkeys.Count > i)
-            //                PrepareSkillCast(hotkeys[i].Skill);
-            //        }
-            //    }
-            //}
         }
 
         public override void UpdateMouseInput()
@@ -335,7 +221,7 @@ namespace SpaceCreep.Client.Lib.Scene
                 gameObjects.AddRange(Game.CurrentMap.MapEnemies);
                 gameObjects.AddRange(Game.CurrentMap.MapObjects);
             }
-            gameObjects.Add(Player);
+            gameObjects.Add(Game.Player);
         }
 
         private void UpdateAnimations(GameTime gameTime)
@@ -352,23 +238,20 @@ namespace SpaceCreep.Client.Lib.Scene
                     i--;
                 }
             }
-
-            //floatingText.ForEach(x => x.Update(gameTime));
-
-            //if (lootLog.Count > 0) lootLog[0].Update(gameTime);
         }
 
         private void UpdatePlayer(GameTime gameTime)
         {
-            Player.Update(gameTime);
+            Game.Player.Update(gameTime);
 
-            if (Player.Hp <= 0)
-                Player.IsAlive = false;
+            if (Game.Player.Hp <= 0)
+                Game.Player.IsAlive = false;
 
-            if (!Player.IsAlive)
+            if (!Game.Player.IsAlive)
                 Game.State = GameState.GameOver;
 
-            Player.Move(InputManager.MovementVector);
+            InputManager.MovementVector = Steering.Seek(Game.Player, InputManager.MouseToMapVector);
+            Game.Player.Move(InputManager.MovementVector);
 
             if (InputManager.MovementVector != Vector2.Zero)
             {
@@ -379,55 +262,32 @@ namespace SpaceCreep.Client.Lib.Scene
                     trackTimer = 0f;
                     Game.CurrentMap.Animations.Add(new Animation
                     {
-                        Position = Player.Position + new Vector2(-10, 10),
+                        Position = Game.Player.Position + new Vector2(-10, 10),
                         Collision = false,
                         Sprite = new SpriteAnimation(GameGraphics.MonsterTrack, 200, 8) {IsToggle = true}
                     });
                     Game.CurrentMap.Animations.Add(new Animation
                     {
-                        Position = Player.Position + new Vector2(10, 10),
+                        Position = Game.Player.Position + new Vector2(10, 10),
                         Collision = false,
                         Sprite = new SpriteAnimation(GameGraphics.MonsterTrack, 200, 8) {IsToggle = true}
                     });
                     Game.CurrentMap.Animations.Add(new Animation
                     {
-                        Position = Player.Position + new Vector2(-10, -10),
+                        Position = Game.Player.Position + new Vector2(-10, -10),
                         Collision = false,
                         Sprite = new SpriteAnimation(GameGraphics.MonsterTrack, 200, 8) {IsToggle = true}
                     });
                     Game.CurrentMap.Animations.Add(new Animation
                     {
-                        Position = Player.Position + new Vector2(10, -10),
+                        Position = Game.Player.Position + new Vector2(10, -10),
                         Collision = false,
                         Sprite = new SpriteAnimation(GameGraphics.MonsterTrack, 200, 8) {IsToggle = true}
                     });
                 }
             }
 
-            Steering.EnforcePenetrationConstraint(Player, gameObjects);
-
-            //if (InputManager.MovementVector == Vector2.Zero)
-            //{
-            //    var nearbyEnemies = AliveEnemies.Where(e => Player.IsInRange(e.Position, 500));
-
-            //    if (Player.Target == null)
-            //    {
-            //        if (nearbyEnemies.Any())
-            //        {
-            //            Player.Target = nearbyEnemies.FirstOrDefault();
-            //        }
-            //        else
-            //        {
-            //            Player.Target = null;
-            //        }
-            //    }
-
-            //    if (Player.Target != null)
-            //    {
-            //        Player.Move(Steering.Seek(Player, Player.Target.Position));
-            //    }
-            //}
-            //Player.ClampToArea(Game.CurrentMap.WidthInPixels, Game.CurrentMap.HeightInPixels);
+            Steering.EnforcePenetrationConstraint(Game.Player, gameObjects);
         }
 
         private void UpdateEnemies(GameTime gameTime)
@@ -443,14 +303,13 @@ namespace SpaceCreep.Client.Lib.Scene
                     UpdateEnemyBehavior(enemy);
 
                     // ATTACK ENEMY
-                    if (Player.IsInRange(enemy.Position, enemy.CollisionRadius + Player.CollisionRadius + 10) &&
-                        enemy.PlayerKillable)
+                    if (Game.Player.IsInRange(enemy.Position, enemy.CollisionRadius + Game.Player.CollisionRadius + 10) && enemy.PlayerKillable)
                     {
-                        Player.Hp -= enemy.Damage;
-                        Player.Hp += enemy.Heal;
+                        Game.Player.Hp -= enemy.Damage;
+                        Game.Player.Hp += enemy.Heal;
                         Game.ChangePoints(enemy.Points);
 
-                        Player.StartAttack();
+                        Game.Player.StartAttack();
 
                         KillEnemy(enemy, true);
                     }
@@ -479,13 +338,8 @@ namespace SpaceCreep.Client.Lib.Scene
                 else
                 {
                     SpawnEnemy(enemy);
-
-                    //enemy.DeathTimer += (int) gameTime.ElapsedGameTime.TotalMilliseconds;
-                    //if (enemy.DeathTimer > Enemy.DeathTimerLimit)
-                    //{
+                    
                     Game.CurrentMap.MapEnemies.RemoveAt(i);
-                    //    i--;
-                    //}
                 }
             }
         }
@@ -515,12 +369,12 @@ namespace SpaceCreep.Client.Lib.Scene
             switch (enemy.Behavior)
             {
                 case Enemy.BehaviorType.Fleeing:
-                    var fleeMovement = Steering.Flee(enemy, Player, 200);
+                    var fleeMovement = Steering.Flee(enemy, Game.Player, 200);
                     if (fleeMovement != Vector2.Zero)
                         movement = fleeMovement;
                     break;
                 case Enemy.BehaviorType.Wandering:
-                    var softFlee = Steering.Flee(enemy, Player, 150f);
+                    var softFlee = Steering.Flee(enemy, Game.Player, 150f);
                     if (softFlee != Vector2.Zero)
                         movement = softFlee;
                     break;
@@ -534,8 +388,8 @@ namespace SpaceCreep.Client.Lib.Scene
         private void KillEnemy(Character enemy, bool byPlayer)
         {
             //var xpFont = Fonts.ArialBlack12;
-            if (Player.Target == enemy)
-                Player.Target = null;
+            if (Game.Player.Target == enemy)
+                Game.Player.Target = null;
 
             enemy.IsAlive = false;
 
@@ -624,8 +478,8 @@ namespace SpaceCreep.Client.Lib.Scene
                     GameGraphics.SoundHeal.Play();
 
             #endregion
-            
-            Player.Target = null;
+
+            Game.Player.Target = null;
             enemy.IsAlive = false;
         }
 
@@ -638,43 +492,20 @@ namespace SpaceCreep.Client.Lib.Scene
                 gameObjects.AddRange(Game.CurrentMap.MapObjects);
             }
 
-            gameObjects.Add(Player);
+            gameObjects.Add(Game.Player);
         }
 
         private void SetupPlayer()
         {
-            Player.IsPlayer = true;
+            Game.Player.IsPlayer = true;
         }
-
-        private void DrawOnScreenLog(SpriteBatch batch)
-        {
-            //var position = new Vector2(GameConfig.Config.WindowWidth - 200, 10);
-            //int messageCount = Log.ScreenLog.Count > 5 ? 5 : Log.ScreenLog.Count;
-            //string lastMessage = string.Empty;
-            //for (int i = 1; i < messageCount; i++)
-            //{
-            //    string currentMessage = Log.ScreenLog[Log.ScreenLog.Count - i];
-            //    if (currentMessage != lastMessage)
-            //    {
-            //        Drawing.DrawText(batch, Fonts.Arial12, currentMessage, position + Camera.Position, Color.White, true);
-            //        position.Y += Fonts.Arial12.LineSpacing;
-            //        lastMessage = currentMessage;
-            //    }
-            //    else
-            //    {
-            //        Log.ScreenLog.RemoveAt(Log.ScreenLog.Count - i);
-            //        messageCount--;
-            //        i--;
-            //    }
-            //}
-        }
-
+        
         public override void Load()
         {
             Game.NewGame();
 
             LoadGameObjects();
-            spriteBatch = new SpriteBatch(Game.GraphicsDevice);
+            SpriteBatch = new SpriteBatch(Game.GraphicsDevice);
             CreateGameObjectList();
             SetupPlayer();
             base.Load();

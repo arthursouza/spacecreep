@@ -1,14 +1,12 @@
-﻿using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceCreep.Client.Lib.Sprite;
 
 namespace SpaceCreep.Client.Lib.Objects
 {
-    [DebuggerDisplay("Name = {Name}")]
     public class Character : GameObject
     {
-        public bool Attacking;
+        private bool attacking;
 
         private Vector2 lastDirection;
 
@@ -53,7 +51,7 @@ namespace SpaceCreep.Client.Lib.Objects
             if (IsAlive)
                 UpdateMovement(gameTime);
 
-            if (!Attacking)
+            if (!attacking)
             {
                 attackTimer = 0f;
 
@@ -65,7 +63,7 @@ namespace SpaceCreep.Client.Lib.Objects
                 attackTimer += (float) gameTime.ElapsedGameTime.TotalMilliseconds;
 
                 if (attackTimer >= attackInterval)
-                    Attacking = false;
+                    attacking = false;
 
                 AttackSprite.Update(gameTime);
                 AttackSprite.Animate();
@@ -86,7 +84,7 @@ namespace SpaceCreep.Client.Lib.Objects
 
         public void StartAttack()
         {
-            Attacking = true;
+            attacking = true;
         }
 
         #region Timers
@@ -161,6 +159,9 @@ namespace SpaceCreep.Client.Lib.Objects
 
         private Vector2 SmoothTurns(Vector2 dir)
         {
+            if (IsPlayer)
+                return dir;
+
             Vector2 direction;
             if (dir != lastDirection)
                 if (currentTurnTimer > turnTimer)
@@ -222,49 +223,12 @@ namespace SpaceCreep.Client.Lib.Objects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (IsAlive && !(this is Enemy))
-                DrawHpBars(spriteBatch);
-
-            if (!Attacking)
+            if (!attacking)
                 CharSprite.Draw(spriteBatch, Position);
             else
                 AttackSprite.Draw(spriteBatch, Position);
         }
-
-        private void DrawHpBars(SpriteBatch spriteBatch)
-        {
-            //if (IsAlive)
-            //{
-            //    int barWidth = 128;
-            //    int barHeight = 64;
-            //    float healthPerc = MaxHp > 0 ? (Hp * 100) / MaxHp : 0;
-            //    float currentBarSize = (healthPerc*barWidth)/100;
-
-            //    Texture2D healthBar = GameGraphics.CharacterHpBar;
-            //    Texture2D healthBarBackground = GameGraphics.CharacterHpBarBg;
-
-            //    Vector2 size = new Vector2(CharSprite.Width, CharSprite.Height);
-
-            //    spriteBatch.Draw(
-            //        healthBarBackground,
-            //        new Rectangle(
-            //            (int) (Position).X - barWidth/2,
-            //            (int) (Position).Y - (int) size.Y,
-            //            barWidth,
-            //            barHeight),
-            //        Color.White);
-
-            //    spriteBatch.Draw(
-            //        healthBar,
-            //        new Rectangle(
-            //            (int) Position.X - barWidth/2,
-            //            (int) Position.Y - (int) size.Y,
-            //            (int)currentBarSize,
-            //            barHeight),
-            //        Color.White);
-            //}
-        }
-
+        
         #endregion
     }
 }

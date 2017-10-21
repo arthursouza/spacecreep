@@ -6,7 +6,7 @@ namespace SpaceCreep.Client.Lib
     public static class Camera
     {
         private static float zoom = 1f;
-        private static readonly Random random = new Random();
+        private static readonly Random Random = new Random();
         private static bool shaking;
 
         private static float shakeMagnitude;
@@ -68,7 +68,7 @@ namespace SpaceCreep.Client.Lib
 
         private static float NextFloat()
         {
-            return (float) random.NextDouble() * 2f - 1f;
+            return (float) Random.NextDouble() * 2f - 1f;
         }
 
         /// <summary>

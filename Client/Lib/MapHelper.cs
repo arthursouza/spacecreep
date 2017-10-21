@@ -8,11 +8,11 @@ namespace SpaceCreep.Client.Lib
     {
         public const int TileSize = 64;
 
-        public static Vector2 GetTileFromPixels(Vector2 Position)
+        public static Vector2 GetTileFromPixels(Vector2 position)
         {
             return new Vector2(
-                (int) (Position.X / TileSize),
-                (int) (Position.Y / TileSize));
+                (int) (position.X / TileSize),
+                (int) (position.Y / TileSize));
         }
 
         public static Vector2 GetTileFromPixels(int x, int y)
@@ -20,11 +20,11 @@ namespace SpaceCreep.Client.Lib
             return GetTileFromPixels(new Vector2(x, y));
         }
 
-        public static Vector2 GetPixelsFromTile(Vector2 Position)
+        public static Vector2 GetPixelsFromTile(Vector2 position)
         {
             return new Vector2(
-                (int) (Position.X * TileSize),
-                (int) (Position.Y * TileSize));
+                (int) (position.X * TileSize),
+                (int) (position.Y * TileSize));
         }
 
         public static Vector2 GetPixelsFromTile(int x, int y)
@@ -32,11 +32,11 @@ namespace SpaceCreep.Client.Lib
             return GetPixelsFromTile(new Vector2(x, y));
         }
 
-        public static Vector2 GetPixelsFromTileCenter(Vector2 Position)
+        public static Vector2 GetPixelsFromTileCenter(Vector2 position)
         {
             return new Vector2(
-                (int) (Position.X * TileSize + TileSize / 2),
-                (int) (Position.Y * TileSize + TileSize / 2));
+                (int) (position.X * TileSize + TileSize / 2),
+                (int) (position.Y * TileSize + TileSize / 2));
         }
         
         public static Direction GetDirectionFromVector(Vector2 directionV)

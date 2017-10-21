@@ -18,7 +18,7 @@ namespace SpaceCreep.Client.Lib
         {
             var fInfo = new FileInfo(path);
 
-            if (!fInfo.Directory.Exists)
+            if (fInfo.Directory != null && !fInfo.Directory.Exists)
                 fInfo.Directory.Create();
 
             var serializer = new XmlSerializer(typeof(T));

@@ -25,11 +25,5 @@ namespace SpaceCreep.Client.Lib.Input
         {
             return KeyboardState.IsKeyDown(key) && LastKeyboardState.IsKeyUp(key);
         }
-
-        private enum InputType
-        {
-            Joystick,
-            Keyboard
-        }
     }
 }

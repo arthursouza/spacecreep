@@ -16,7 +16,7 @@ namespace SpaceCreep.Client.Lib.Scene
         public GameOverScene(Game game)
         {
             Game = game;
-            spriteBatch = new SpriteBatch(Game.GraphicsDevice);
+            SpriteBatch = new SpriteBatch(Game.GraphicsDevice);
         }
 
         public override void MouseClick(MouseButton button)
@@ -36,11 +36,11 @@ namespace SpaceCreep.Client.Lib.Scene
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin();
+            SpriteBatch.Begin();
             if (play)
-                spriteBatch.Draw(GameGraphics.GameOverMenu2, Game.GraphicsDevice.Viewport.Bounds, Color.White);
+                SpriteBatch.Draw(GameGraphics.GameOverMenu2, Game.GraphicsDevice.Viewport.Bounds, Color.White);
             else
-                spriteBatch.Draw(GameGraphics.GameOverMenu1, Game.GraphicsDevice.Viewport.Bounds, Color.White);
+                SpriteBatch.Draw(GameGraphics.GameOverMenu1, Game.GraphicsDevice.Viewport.Bounds, Color.White);
 
             var points = Game.HighScores.OrderByDescending(x => x).Take(5);
 
@@ -53,7 +53,7 @@ namespace SpaceCreep.Client.Lib.Scene
                 var scoreText = score.ToString("000 000 000 000");
                 var textSize = Fonts.Arial12.MeasureString(scoreText);
 
-                Drawing.DrawText(spriteBatch, Fonts.Arial12, scoreText, new Vector2(0, lineHeight) + pos - new Vector2(textSize.X / 2, 0), Color.LightPink, true);
+                Drawing.DrawText(SpriteBatch, Fonts.Arial12, scoreText, new Vector2(0, lineHeight) + pos - new Vector2(textSize.X / 2, 0), Color.LightPink, true);
                 pos = pos + new Vector2(0, lineHeight);
             }
 
@@ -61,12 +61,7 @@ namespace SpaceCreep.Client.Lib.Scene
 
             //spriteBatch.Draw(GameGraphics.SelectedItemTexture, playButton, Color.White);
 
-            spriteBatch.End();
-        }
-
-        public override void MouseDown(MouseButton button)
-        {
-            base.MouseDown(button);
+            SpriteBatch.End();
         }
 
         public override void Load()

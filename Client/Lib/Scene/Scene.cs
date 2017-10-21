@@ -7,7 +7,7 @@ namespace SpaceCreep.Client.Lib.Scene
     public abstract class Scene
     {
         protected Game Game;
-        protected SpriteBatch spriteBatch;
+        protected SpriteBatch SpriteBatch;
 
         public abstract void Draw(GameTime gameTime);
         public abstract void Update(GameTime gameTime);
